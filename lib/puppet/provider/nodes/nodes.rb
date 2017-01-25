@@ -4,13 +4,14 @@ require 'puppet/ssl/certificate'
 
 Puppet::Type.type(:nodes).provide(:nodes,
                                  :parent => Puppet::Provider::AppModelingMonitor) do
-
   def validate
     begin
-      Puppet::SSL::CertificateAuthority.new.verify(name)
-      return 'signed'
+      Puppet.notice "validate"
+      Puppet.notice resource[:name]
+      Puppet::SSL::CertificateAuthority.new.verify(resource[:name])
+      return true
     rescue Puppet::SSL::CertificateAuthority::CertificateVerificationError
-      return 'revoked'
+      notice_for_failure('revoked')
     end
   end
 end
