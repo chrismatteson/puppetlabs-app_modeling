@@ -9,6 +9,11 @@ Puppet::Type.newtype :nodes, is_capability: true do
     desc 'An arbitrary name used as the identity of the resource.'
   end
 
+  newparam(:nodes) do
+    desc 'An array of nodes'
+    defaultto ['test']
+  end
+
   newparam(:timeout) do
     desc 'Time before timing out the resource (seconds)'
     defaultto 60

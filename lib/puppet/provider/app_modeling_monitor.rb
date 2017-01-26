@@ -9,7 +9,6 @@ class Puppet::Provider::AppModelingMonitor < Puppet::Provider
   def exists?
     # If this node is the producer of the capability,
     # do not run the check on that node.
-    return true if resource.tags.grep(/^producer:/).any?
 
     timeout = resource[:timeout]
 
