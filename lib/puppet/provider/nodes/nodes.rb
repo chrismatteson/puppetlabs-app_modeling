@@ -6,7 +6,7 @@ Puppet::Type.type(:nodes).provide(:nodes,
                                  :parent => Puppet::Provider::AppModelingMonitor) do
 
   def validate
-    nodes = resource[:nodes]
+    nodes = resource[:nodes].delete("[ ]").split(",")
     begin
       nodes.each do |node|
         Puppet::SSL::CertificateAuthority.new.verify("#{node}")
